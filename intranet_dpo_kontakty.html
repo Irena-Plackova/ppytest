@@ -1,0 +1,121 @@
+<html lang="cs"><head>
+		<title>Titulní strana | Kontakty | DPO, a.s.</title>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="kamil.kocian@dpo.cz">
+		<link rel="stylesheet" href="/kontakty/lib/bootstrap/dist/css/bootstrap.min.css">
+		<link rel="stylesheet" href="/kontakty/lib/bootstrap-icons/bootstrap-icons.css">
+		<link rel="stylesheet" href="/kontakty/css/style.css">
+		<link rel="icon" href="/kontakty/favicon.svg" sizes="any" type="image/svg+xml">
+	</head>
+
+	<body class="d-flex flex-column h-100">
+		<header>
+			<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+				<div class="container">
+					<!-- Logo vlevo -->
+					<a class="navbar-brand" href="/kontakty">
+						<img src="/kontakty/img/dpo-logo-2023.svg" alt="Kontakty" height="75">
+						<img src="/kontakty/img/logo-kontakty.svg" alt="Kontakty" height="75">
+						<span class="h6 fs-6 text-uppercase ms-2">Kontakty</span>
+					</a>
+
+					<!-- Tlačítko hamburger menu -->
+					<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+						<span class="navbar-toggler-icon"></span>
+					</button>
+
+					<!-- Navigace + vyhledávací box -->
+					<div class="collapse navbar-collapse bg-light" id="navbarNav">
+						<ul class="navbar-nav ms-auto fw-bold">
+							<li class="nav-item m-0">
+								<a class="nav-link" href="/kontakty/organizacni-struktura">Organizační struktura</a>
+							</li>
+							<li class="nav-item m-0">
+								<a class="nav-link" href="/kontakty/mista">Seznam míst</a>
+							</li>
+						</ul>
+
+						<!-- Vyhledávací box (schová se do hamburger menu na mobilu) -->
+
+					</div>
+				</div>
+			</nav>
+		</header>
+
+		<main class="flex-grow-1 d-flex text-center align-items-center justify-content-center">
+			<div class="container my-4">
+				
+	<div>
+		<img src="/kontakty/img/dpo-logo-2023.svg" class="mb-5" height="150">
+		<div id="vyhledavaci-box" class="mx-auto d-block" style="max-width: 35rem;">
+			<form method="get" id="formular-vyhledavani">
+				<div class="input-group flex-nowrap">
+					<div class="position-relative flex-grow-1 min-width-0">
+						<input type="text" class="form-control ps-5" name="hledat" id="vstup-vyhledavani" placeholder="Zadejte hledaný text" value="" autocomplete="off" aria-label="Vyhledávání" required="" autofocus="" title="Fulltext hledání podle titulu, jména, příjmení, profese, lokality, útvaru, klapky/mobilu, Teams, emailu nebo místa">
+						<i class="bi bi-search position-absolute search-icon"></i>
+					</div>
+
+					<div class="dropdown">
+						<button class="btn btn-secondary dropdown-toggle" type="button" id="tlacitko-menu" data-bs-toggle="dropdown" aria-expanded="false">
+							<span id="vybrana-kategorie">Lidé</span>
+						</button>
+						<ul class="dropdown-menu" aria-labelledby="tlacitko-menu">
+							<li><a class="dropdown-item" href="#" data-hodnota="zamestnanci">Lidé</a></li>
+							<li><a class="dropdown-item" href="#" data-hodnota="mista">Místa</a></li>
+						</ul>
+						<input type="hidden" name="kategorie-vyhledavani" id="kategorie-vyhledavani" value="zamestnanci">
+					</div>
+
+					<button class="btn btn-primary" type="submit">Hledat</button>
+				</div>
+			</form>
+		</div>
+	</div>
+
+			</div>
+		</main>
+
+		<footer class="bg-light">
+			<div class="container py-2">
+				<div class="d-flex justify-content-between">
+					<small>© 2025 <a class="small" href="https://www.dpo.cz/" title="Dopravní podnik Ostrava a.s." target="_blank">DPO, a.s.</a></small>
+					<small id="clock">20.02.2025 08:51</small>
+				</div>
+			</div>
+		</footer>
+
+		<script src="/kontakty/lib/jquery/dist/jquery.min.js"></script>
+		<script src="/kontakty/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+		<script src="/kontakty/js/clock.js"></script>
+
+		<!-- JavaScript pro dropdown a formulář -->
+		<script>
+			document.addEventListener("DOMContentLoaded", () => {
+				const vybranaKategorie = document.getElementById("vybrana-kategorie");
+				const skrytyVstup = document.getElementById("kategorie-vyhledavani");
+				const formular = document.getElementById("formular-vyhledavani");
+
+				document.querySelectorAll(".dropdown-item").forEach(polozka => {
+					polozka.addEventListener("click", e => {
+						e.preventDefault();
+						vybranaKategorie.textContent = polozka.textContent;
+						skrytyVstup.value = polozka.dataset.hodnota;
+					});
+				});
+
+				if (formular) {
+					formular.addEventListener("submit", e => {
+						e.preventDefault();
+						const hledanyVyraz = document.getElementById("vstup-vyhledavani")?.value || "";
+						const cilovaAdresa = `/kontakty/${skrytyVstup.value || "zamestnanci"}?hledat=${encodeURIComponent(hledanyVyraz)}`;
+						window.location.href = cilovaAdresa;
+					});
+				}
+			});
+		</script>
+
+		
+	
+
+</body></html>
